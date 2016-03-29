@@ -45,6 +45,8 @@ useAsDefault: true 默认路由,子路由也要设置一个默认值.
         2)导航到路由
             // Like <a [routerLink]="['Heroes']">Heroes</a>
             this._router.navigate(['Heroes']);  //不带参数
+            let link = ['HeroDetail', { id: hero.id }]; //直接定义成对象传递
+            this._router.navigate(link);
             this._router.navigate(['CrisisDetail', { id: crisis.id }]  ); //参数
             this._router.navigate(['Heroes',  {id: heroId, foo: 'foo'} ]); //参数对象 
             子路由的URL:localhost:3000/crisis-center/;id=3;foo=foo
@@ -75,5 +77,6 @@ useAsDefault: true 默认路由,子路由也要设置一个默认值.
                 return this._dialog.confirm('Discard changes?');
                 }
             }
-        
+        9.路由后退
+            window.history.back()
             
