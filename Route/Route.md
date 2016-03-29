@@ -2,7 +2,7 @@
     <script src="node_modules/angular2/bundles/router.dev.js"></script>
     
 2.使用history.pushState导航时必须在 index.html中添加<base href>来启用它.
-    <head> <base href="/"></head>
+        <head> <base href="/"></head>
     
 3.路由配置当浏览器的URL变化时，router会寻找相应的RouteDefinition并显示其组件。创建路由并将路由添加到主组件的@RouteConfig
     @Component({ ... })
@@ -18,16 +18,18 @@
 useAsDefault: true 默认路由,子路由也要设置一个默认值.
 
 4.总结:关于Router的概念有：
-    Router：根据URL显示组件，管理组件之间的跳转。
-    @RouteConfig：使用RouteDefinitions配置Router，每一个映射一个URL路径到组件。
-    RouteDefinition：定义router如何根据URL进行导航。
-    Route：最常见的RouteDefinition形式，包括URL路径、路由名称和组件。
-    RouterOutlet：标记router在哪里显示视图的指令（<router-outlet>）。
-    RouterLink：用于绑定一个可点击的HTML元素到route的指令。
-    Link Parameters Array：链接参数数组。router会将这个数组解释成路由指令。我们可以将这个数组绑定到RouterLink，或者作为参数传递给Router.     navigate方法。
-    Routing Component。配置了路由的组件。
+        Router：根据URL显示组件，管理组件之间的跳转。
+        @RouteConfig：使用RouteDefinitions配置Router，每一个映射一个URL路径到组件。
+        RouteDefinition：定义router如何根据URL进行导航。
+        Route：最常见的RouteDefinition形式，包括URL路径、路由名称和组件。
+        RouterOutlet：标记router在哪里显示视图的指令（<router-outlet>）。
+        RouterLink：用于绑定一个可点击的HTML元素到route的指令。
+        Link Parameters Array：链接参数数组。router会将这个数组解释成路由指令。我们可以将这个数组绑定到RouterLink，或者作为参数传递给
+        Router.navigate方法。
+        Routing Component。配置了路由的组件。
     
 6.子路由配置
+    在父亲组件上定义不完整的子路由
     @RouteConfig([
         { // Crisis Center child route
             path: '/crisis-center/...', //表示该路由不完整,要配置子路由配置完成路由
@@ -37,11 +39,16 @@ useAsDefault: true 默认路由,子路由也要设置一个默认值.
             {path: '/heroes',   name: 'Heroes',     component: HeroListComponent},
             {path: '/hero/:id', name: 'HeroDetail', component: HeroDetailComponent},
         ])
+    在子组件上定义路由:
+    @RouteConfig([
+         {path:'/',    name: 'CrisisList',   component: CrisisListComponent, useAsDefault: true},
+        {path:'/:id', name: 'CrisisDetail', component: CrisisDetailComponent}
+    ])
     
 7.路由方法
+
         import {ROUTER_PROVIDERS} from 'angular2/router';
         bootstrap(AppComponent, [ROUTER_PROVIDERS]);
-        
         1)导入路由模块
             import {Router} from 'angular2/router';
         2)导航到路由
@@ -58,6 +65,41 @@ useAsDefault: true 默认路由,子路由也要设置一个默认值.
             constructor( private _service: HeroService,private _router: Router,routeParams: RouteParams) {
                 this._selectedId = +routeParams.get('id');//获取路由参数
             }
+            3)路由数据
+                import {Router, RouteData} from 'angular2/router';
+                @RouteConfig([
+                    {path: '/user/:id', component: UserCmp, name: 'UserCmp',data:{isAdmin:true}},//数据传递,对象格式:{(key:string):value}
+                ])
+                constructor(data: RouteData) { //data.get(string) 获取KEY的值; data.data 返回原传递对象
+                    this.isAdmin = data.get('isAdmin'); //获取传递的数据
+                }
+            4)路由参数
+                import {RouteConfig,RouteParams} from 'angular2/router';
+                @RouteConfig([
+                        {path: '/user/:id', component: UserCmp, name: 'UserCmp'}, //:id参数
+                    ])
+                class AppCmp {}
+                
+                @Component({ template: 'user: {{id}}' }) //调用获取的参数
+                class UserCmp {
+                    id: string;
+                     constructor(params: RouteParams) {  //params : {[key: string]: string} 获取参数串 get([key:string]) 获取路由传递参数
+                     this.id = params.get('id');  //获取路由传递的参数
+                }
+            5)RouterLink
+                <a [routerLink]="['/User']">link to user component</a>  
+                ['/Team', {teamId: 1}/*Team的参数*/, 'User', {userId: 2}/*User的参数*/] 表示基于路由命名NAME的路径: /Team/1/User/2
+            6)RouteDefinition
+                path or aux (requires exactly one of these)
+                component, loader, redirectTo (requires exactly one of these)
+                name or as (optional) (requires exactly one of these)
+                data (optional)
+            7)Route
+                path is a string that uses the route matcher DSL.
+                component a component type.
+                name is an optional CamelCase string representing the name of the route.
+                data is an optional property of any type representing arbitrary route metadata for the given route. It is injectable via RouteData.
+                useAsDefault is a boolean value. If true, the child route will be navigated to if no child route is specified during the navigation.
         8.router生命周期钩子
             可以改变路由的行为。router的钩子函数可以组织导航到一个路径，如果返回值是false，就取消导航，保持在当前视图。还可以让路由导航到里你跟一个组件。
         CanActivate
