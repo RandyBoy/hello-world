@@ -27,153 +27,135 @@ h)	@Input() set defaultColor(colorName:string){ //定义输入属性
 	}
 
 4.结构指令
-a)	constructor(
-b)	  private _templateRef: TemplateRef,//访问模版
-c)	  private _viewContainer: ViewContainerRef //渲染器
-d)	  ) { }
-e)	@Input() set myUnless(condition: boolean) {
-f)	  if (!condition) {
-g)	    this._viewContainer.createEmbeddedView(this._templateRef);
-h)	  } else {
-i)	    this._viewContainer.clear();
-j)	  }
-k)	}
-l)	<p *ngIf="condition">
-m)	  Our heroes are true!
-n)	</p>
-o)	<!-- (B) [ngIf] with template -->
-p)	<template [ngIf]="condition">
-q)	<p>
-r)	    Our heroes are true!
-s)	</p>
-t)	</template>
+	a)constructor(private _templateRef: TemplateRef,//访问模版 private _viewContainer: ViewContainerRef //渲染器) { }
+		@Input() set myUnless(condition: boolean) { 
+	  		if (!condition) {
+	    			this._viewContainer.createEmbeddedView(this._templateRef);
+	  		} else {
+	    			this._viewContainer.clear();
+	  			}
+			}
+	b)<p *ngIf="condition">
+	  	Our heroes are true!
+	  </p>
+	<!-- (B) [ngIf] with template -->
+	<template [ngIf]="condition">
+	<p>
+	    Our heroes are true!
+	</p>
+	</template>
 
-u)	<div *ngFor="#hero of heroes">{{ hero }}</div>
-v)	<!-- (B) ngFor with template -->
-w)	<template ngFor #hero [ngForOf]="heroes">
-x)	<div>{{ hero }}</div>
-y)	</template>
-z)	div *ngIf="hero">{{hero}}</div>
-aa)	<div *ngFor="#hero of heroes">{{hero}}</div>
-bb)	<div [ngSwitch]="status">
-cc)	<template [ngSwitchWhen]="'in-mission'">In Mission</template>
-dd)	<template [ngSwitchWhen]="'ready'">Ready</template>
-ee)	<template ngSwitchDefault>Unknown</template>
-ff)	</div>
-gg)	<hr>
+	c)<div *ngFor="#hero of heroes">{{ hero }}</div>
+	<!-- (B) ngFor with template -->
+	<template ngFor #hero [ngForOf]="heroes">
+		<div>{{ hero }}</div>
+	</template>
+	div *ngIf="hero">{{hero}}</div>
+	<div *ngFor="#hero of heroes">{{hero}}</div>
+	c)<div [ngSwitch]="status">
+		<template [ngSwitchWhen]="'in-mission'">In Mission</template>
+		<template [ngSwitchWhen]="'ready'">Ready</template>
+		<template ngSwitchDefault>Unknown</template>
+	  </div>
 
 5.模板语法
-数据流向	语法	绑定类型
-单向：数据源到目标视图	{{expression}}
-[target]=”expression”
-bind-target=”expression”	插值（Interpolation)
-DOM属性(property）
-HTML属性（Attribute）
-类（Class）
-样式（Style）
-单向：目标视图到数据源	（target)="expression"
-on-target="expression"	事件（Event）
-双向	[(target)]=”expression”
-bindon-target=”expression”	
-绑定类型	目标	举例
-属性（Property）	DOM属性
-组件属性
-指令属性	<img [src]="heroImageUrl">
-<hero-detail [hero]="currentHero">
-</hero-detail>
-事件	DOM事件
-组件事件
-指令事件	<button (click)="onSave()">Save</button>
-<hero-detail (deleted)="onHeroDeleted()">
-<hero-detail>
-<div myClick (myClick)="clicked=$event">
-click me</div>
-双向	指令事件
-DOM属性	<input [(ngModel)]=“heroName”>
-HTML属性	HTML属性（特例）	<button [attr.aria-label]="help">
-help</button>
-类	类属性	<div [class.special]="isSpecial">
-Special</div>
-样式	样式属性	<button [style.color]="isSpecial?'red':'green'">
-a)	
+	数据流向	语法	绑定类型
+	单向：数据源到目标视图	{{expression}}               		插值（Interpolation) 
+				[target]=”expression”			DOM属性(property）HTML属性（Attribute）
+				bind-target=”expression”		类（Class）样式（Style）
+	单向：目标视图到数据源	target)="expression"
+				on-target="expression"			事件（Event）
+	双向			[(target)]=”expression”
+				bindon-target=”expression”	
+	绑定类型		目标		举例
+	属性（Property）	DOM属性		<img [src]="heroImageUrl">
+				组件属性	<hero-detail [hero]="currentHero">
+				指令属性	</hero-detail>
+	事件			DOM事件		<div myClick (myClick)="clicked=$event">click me</div>
+				组件事件	<hero-detail (deleted)="onHeroDeleted()"><hero-detail>
+				指令事件	<button (click)="onSave()">Save</button>
+	双向			指令事件
+				DOM属性		<input [(ngModel)]=“heroName”>
+				HTML属性	
+				HTML属性（特例）<button [attr.aria-label]="help">help</button>
+	类			类属性		<div [class.special]="isSpecial">Special</div>
+	样式			样式属性	<button [style.color]="isSpecial?'red':'green'">
+	
 6.属性（Attribute）绑定, 类绑定和样式绑定
-a)	Atrribute绑定在属性名称之前加attr关键字
-b)	类绑定在类名之前加上class关键字[class.class-name]<div [class.special] = "isSpecial"> 表达式为真应用样式，否则移除。
-c)	样式绑定在样式属性之前加上style关键字[style.style-property]。
-d)	<button [style.color]="isSpecial?'red':'green'">Red</button>
-e)	<button [style.backgroundColor]="canSave?'cyan':'grey'">Save</button>
-f)	<button [style.fontSize.em]="isSpecial?3:1">Big</button> //样式单位设置
-g)	<button [style.fontSize.%]="isSpecial?150:50">Small</button> //样式单位设置
+	Atrribute绑定在属性名称之前加attr关键字
+	类绑定在类名之前加上class关键字[class.class-name]<div [class.special] = "isSpecial"> 表达式为真应用样式，否则移除。
+	样式绑定在样式属性之前加上style关键字[style.style-property]。
+	<button [style.color]="isSpecial?'red':'green'">Red</button>
+	<button [style.backgroundColor]="canSave?'cyan':'grey'">Save</button>
+	<button [style.fontSize.em]="isSpecial?3:1">Big</button> //样式单位设置
+	<button [style.fontSize.%]="isSpecial?150:50">Small</button> //样式单位设置
 7.事件绑定
-a)	deleted = new EventEmitter<Hero>(); //自定义事件
-b)	onDeleted(){ 触发事件
-c)	    this.deleted.emit(this.hero); 发送值通过$event传递给父组件
-d)	} 
-e)	<hero-detail (deleted)="onHeroDeleted($event)" [hero]="currentHero"></hero-detail>
-当绑定的表达式的返回结果为假值（包括没有返回值）时，事件传播会停止，当表达式的返回结果为真值时，事件传播会继续。按钮和其外层div都会监听到click事件<div (click)="onSave()">
-<button (click)="onSave || true">Save will propagation</button>
-</div>
+	deleted = new EventEmitter<Hero>(); //定义事件
+	onDeleted(){  //触发事件
+		this.deleted.emit(this.hero); 发送值通过$event传递给父组件
+	} 
+    	<hero-detail (deleted)="onHeroDeleted($event)" [hero]="currentHero"></hero-detail> //调用事件
+	当绑定的表达式的返回结果为假值（包括没有返回值）时，事件传播会停止，当表达式的返回结果为真值时，事件传播会继续。按钮和其外层div都会监听到click事件
+	<div (click)="onSave()">
+		<button (click)="onSave || true">Save will propagation</button>
+	</div>
 8.NgModel实现双向绑定
-a)	<input [(ngModel)]="currentHero.firstName">
-b)	<input bindon-ngModel="currentHero.firstName">
+	<input [(ngModel)]="currentHero.firstName">
+	<input bindon-ngModel="currentHero.firstName">
 
 9.内置指令
-a)	NgClass方法给它绑定一个key:value对象，其中key对应于一个类名，当它对应的value为真时，类被添加，反之，类被移除。
-b)	div [ngClass]="setClasses()">This div is saveable and special</div>setClasses(){
-c)	    return {
-d)	        saveable:this.canSave,      //true
-e)	        modified:!this.isUnchanged, //false
-f)	        special:this.isSpecial      //true
-g)	    }
-h)	}
-
-
+	NgClass方法给它绑定一个key:value对象，其中key对应于一个类名，当它对应的value为真时，类被添加，反之，类被移除。
+	div [ngClass]="setClasses()">This div is saveable and special</div>
+	setClasses(){
+	    return {
+	        saveable:this.canSave,      //true
+	        modified:!this.isUnchanged, //false
+	        special:this.isSpecial      //true
+	    }
+	}
 10.NgStyle
-a)	使用NgStyle的方法就是给它绑定一个key:value对象，其中key对应于一个样式名，vaule对应于该样式的具体设置。setStyles(){
-b)	    return {
-c)	        //CSS property names
-d)	        fontStyle:this.canSave ? 'italic':'normal', //italic
-e)	        fontWeight:!this.isUnchanged ? 'bold':'normal', //normal
-f)	        fontSize:this.isSpecial ? 'x-large':'smaller' //x-large
-g)	    }
-h)	}
-i)	
+	使用NgStyle的方法就是给它绑定一个key:value对象，其中key对应于一个样式名，vaule对应于该样式的具体设置。
+	 setStyles(){
+	    return {
+	        //CSS property names
+	        fontStyle:this.canSave ? 'italic':'normal', //italic
+	        fontWeight:!this.isUnchanged ? 'bold':'normal', //normal
+	        fontSize:this.isSpecial ? 'x-large':'smaller' //x-large
+	    }
+	}
+	
 11.依赖注入
-a)	bootstrap(AppComponent, [HeroService]); bootstrap的provider选项的目的是配置和覆盖Angular自己预注册的服务,路由服务和HTTP服务,创建单例服务
-b)	组件中注入服务providers:[HeroService] 
-c)	创建服务类加@Injectable()装饰器
-d)	可选服务注册constructor(@Optional() private _logger:Logger) {  }
-e)	Injector provider依赖提供者: providers: [Logger]等价于 [new Provider(Logger, {useClass: Logger})]
-f)	useClass:[UserService,provide(Logger,{useClass: EvenBetterLogger})]
-g)	useExisting:[NewLogger, provide(OldLogger,{useExisting: NewLogger})]//别名提供者
-h)	useValue:[provide(Logger, {useValue: silentLogger})] //值提供者
-i)	factory provider: let heroServiceFactory = (logger: Logger, userService: UserService) => {
-j)	          return new HeroService(logger, userService.user.isAuthorized);}
-export let heroServiceProvider =
-k)	  provide(HeroService, {
-l)	    useFactory: heroServiceFactory //provider是工厂函数
-m)	    deps: [Logger, UserService] //provider token数组
-n)	  });
-o)	字符串token:[provide('app.config', {useValue: CONFIG})]
-p)	// @Inject(token) to inject the dependency
-q)	constructor(@Inject('app.config') private _config: Config){ }
-r)	
-s)	OpaqueToken:import {OpaqueToken} from 'angular2/core';
-t)	
-u)	export let APP_CONFIG = new OpaqueToken('app.config');
-v)	providers: [
-w)	  Logger,
-x)	  UserService,
-y)	  provide(APP_CONFIG, {useValue: CONFIG}) //注册
-z)	constructor(
-aa)	  @Inject(APP_CONFIG) config:Config, //使用
-bb)	  private _userService: UserService) {this.title = config.title;
-cc)	}]
-dd)	直接使用依赖:
-ee)	1.providers: [Car, Engine, Tires,heroServiceProvider, Logger] //导入相关类
-ff)	2.constructor(private _injector: Injector) { } \\注入依赖类
-gg)	  car:Car = this._injector.get(Car); //使用服务类
-hh)	  heroService:HeroService = this._injector.get(HeroService);
+	a)bootstrap(AppComponent, [HeroService]);bootstrap的provider选项配置和覆盖Angular自己预注册的服务,例如路由服务和HTTP服务,创建的		是单例服务
+	b)组件中注入服务providers:[HeroService] 
+	c)创建服务类加@Injectable()装饰器
+	d)可选服务注册constructor(@Optional() private _logger:Logger) {  }
+	e)Injector provider依赖提供者: providers: [Logger]等价于 [new Provider(Logger, {useClass: Logger})]
+	f)useClass:[UserService,provide(Logger,{useClass: EvenBetterLogger})]
+	g)useExisting:[NewLogger, provide(OldLogger,{useExisting: NewLogger})]//别名提供者
+	h)useValue:[provide(Logger, {useValue: silentLogger})] //值提供者
+	i)factory provider: 
+		let heroServiceFactory = (logger: Logger, userService: UserService) => {
+ 			return new HeroService(logger, userService.user.isAuthorized);}
+		export let heroServiceProvider = provide(HeroService, {
+	    					useFactory: heroServiceFactory //provider是工厂函数
+	    					deps: [Logger, UserService] //provider token数组
+	  	});
+	o)字符串token:[provide('app.config', {useValue: CONFIG})]
+		// @Inject(token) to inject the dependency
+		constructor(@Inject('app.config') private _config: Config){ }
+		
+	p)OpaqueToken:
+		import {OpaqueToken} from 'angular2/core';
+		export let APP_CONFIG = new OpaqueToken('app.config');
+			providers: [Logger,UserService,provide(APP_CONFIG, {useValue: CONFIG}) //注册
+			constructor( @Inject(APP_CONFIG) config:Config, //使用 private _userService: UserService) {
+				this.title = config.title;
+			}]
+	q)直接使用依赖:
+		providers: [Car, Engine, Tires,heroServiceProvider, Logger] //导入相关类
+		constructor(private _injector: Injector) { } \\注入依赖类
+	  	car:Car = this._injector.get(Car); //使用服务类
+	  	heroService:HeroService = this._injector.get(HeroService);
 
 
 
