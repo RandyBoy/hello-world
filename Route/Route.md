@@ -24,7 +24,7 @@ useAsDefault: true 默认路由,子路由也要设置一个默认值.
     Route：最常见的RouteDefinition形式，包括URL路径、路由名称和组件。
     RouterOutlet：标记router在哪里显示视图的指令（<router-outlet>）。
     RouterLink：用于绑定一个可点击的HTML元素到route的指令。
-    Link Parameters Array：链接参数数组。router会将这个数组解释成路由指令。我们可以将这个数组绑定到RouterLink，或者作为参数传递给Router.navigate方法。
+    Link Parameters Array：链接参数数组。router会将这个数组解释成路由指令。我们可以将这个数组绑定到RouterLink，或者作为参数传递给Router.     navigate方法。
     Routing Component。配置了路由的组件。
     
 6.子路由配置
@@ -58,8 +58,8 @@ useAsDefault: true 默认路由,子路由也要设置一个默认值.
             constructor( private _service: HeroService,private _router: Router,routeParams: RouteParams) {
                 this._selectedId = +routeParams.get('id');//获取路由参数
             }
-    8.router生命周期钩子
-        可以改变路由的行为。router的钩子函数可以组织导航到一个路径，如果返回值是false，就取消导航，保持在当前视图。还可以让路由导航到里         你跟一个组件。
+        8.router生命周期钩子
+            可以改变路由的行为。router的钩子函数可以组织导航到一个路径，如果返回值是false，就取消导航，保持在当前视图。还可以让路由导航到里你跟一个组件。
         CanActivate
         OnActivate
         CanDeactivate:
