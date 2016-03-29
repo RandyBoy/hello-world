@@ -125,7 +125,9 @@ h)	@Input() set defaultColor(colorName:string){ //定义输入属性
 	}
 	
 11.依赖注入
-	a)bootstrap(AppComponent, [HeroService]);bootstrap的provider选项配置和覆盖Angular自己预注册的服务,例如路由服务和HTTP服务,创建的		是单例服务
+	a)bootstrap(AppComponent, [HeroService]);bootstrap的provider选项配置和覆盖Angular自己预注册的服务,例如路由服务和HTTP服务,创建的		是单例服务,在根注入的服务,其对所有子组件都是可用的，在子组件中直接注入使用: 
+		import { InjectorSerice] from 'services/InjectorSerice';
+		new constructor(private is:InjectorSerice);
 	b)组件中注入服务providers:[HeroService] 
 	c)创建服务类加@Injectable()装饰器
 	
