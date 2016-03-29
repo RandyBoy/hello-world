@@ -128,11 +128,17 @@ h)	@Input() set defaultColor(colorName:string){ //定义输入属性
 	a)bootstrap(AppComponent, [HeroService]);bootstrap的provider选项配置和覆盖Angular自己预注册的服务,例如路由服务和HTTP服务,创建的		是单例服务
 	b)组件中注入服务providers:[HeroService] 
 	c)创建服务类加@Injectable()装饰器
+	
 	d)可选服务注册constructor(@Optional() private _logger:Logger) {  }
+	
 	e)Injector provider依赖提供者: providers: [Logger]等价于 [new Provider(Logger, {useClass: Logger})]
+	
 	f)useClass:[UserService,provide(Logger,{useClass: EvenBetterLogger})]
+	
 	g)useExisting:[NewLogger, provide(OldLogger,{useExisting: NewLogger})]//别名提供者
+	
 	h)useValue:[provide(Logger, {useValue: silentLogger})] //值提供者
+	
 	i)factory provider: 
 		let heroServiceFactory = (logger: Logger, userService: UserService) => {
  			return new HeroService(logger, userService.user.isAuthorized);}
@@ -140,6 +146,7 @@ h)	@Input() set defaultColor(colorName:string){ //定义输入属性
 	    					useFactory: heroServiceFactory //provider是工厂函数
 	    					deps: [Logger, UserService] //provider token数组
 	  	});
+	  	
 	o)字符串token:[provide('app.config', {useValue: CONFIG})]
 		// @Inject(token) to inject the dependency
 		constructor(@Inject('app.config') private _config: Config){ }
