@@ -15,7 +15,8 @@
       控制器的值有效	ng-valid	ng-invalid
   d)<form (ngSubmit)=”onSubmit()” #heroForm=”ngForm”>定义模板局部变量—#heroForm，并用”ngForm”来初始化它的值。
 3.属性指令
-  a)@Directive装饰器表示属性指令,使用ElementReference元素引用）和Renderer（渲染器）符号来作为依赖注入到指令的构造函数，命名格式：selector: '[myHighlight]',，注意中括号
+  @Directive装饰器表示属性指令,使用ElementReference元素引用）和Renderer（渲染器）符号来作为依赖注入到指令的构造函数，命名格式：
+  	selector: '[myHighlight]',，注意中括号
   b)开始事件检测。我们在指令元数据中添加一个host 属性,在属性配置对象声明了两个鼠标事件以及事件发生时所触发的指令方法。
   c)	host 属性指的是作为属性指令宿主的DOM元素
   d)	host: { // 定义在@Directive内部
@@ -25,6 +26,8 @@
 h)	@Input() set defaultColor(colorName:string){ //定义输入属性
 	  this._defaultColor = colorName || this._defaultColor;
 	}
+定义方式:
+	inputs: ['hero'] 或者 @Input(heroalias) hero:Hero
 
 4.结构指令
 	a)constructor(private _templateRef: TemplateRef,//访问模版 private _viewContainer: ViewContainerRef //渲染器) { }
