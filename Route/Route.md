@@ -105,6 +105,12 @@ useAsDefault: true 默认路由,子路由也要设置一个默认值.
                     new Redirect({path: '/', redirectTo: ['/Home'] }), //指定路径和重定向的路径名称
                     new Route({path: '/home', component: HomeCmp, name: 'Home'})
                 ])
+            9)Router
+                navigate(linkParams: any[]) : Promise<any>  //导航到指定路由Name链接
+                ['./MyCmp', {param: 3}]
+                navigateByUrl(url: string, _skipLocationChange?: boolean) : Promise<any>
+                //导航到指定URL的路由,URL指定/开头就是绝对路径,否则就是相对路径
+        
         8.router生命周期钩子
             可以改变路由的行为。router的钩子函数可以组织导航到一个路径，如果返回值是false，就取消导航，保持在当前视图。还可以让路由导航到里你跟一个组件。
         CanActivate
