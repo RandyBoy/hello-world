@@ -37,6 +37,7 @@ useAsDefault: true 默认路由,子路由也要设置一个默认值.
         {path: '/heroes',   name: 'Heroes',     component: HeroListComponent},
         {path: '/hero/:id', name: 'HeroDetail', component: HeroDetailComponent},
     ])
+    
     7.路由方法
         import {ROUTER_PROVIDERS} from 'angular2/router';
         bootstrap(AppComponent, [ROUTER_PROVIDERS]);
