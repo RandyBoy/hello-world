@@ -46,7 +46,9 @@ useAsDefault: true 默认路由,子路由也要设置一个默认值.
             // Like <a [routerLink]="['Heroes']">Heroes</a>
             this._router.navigate(['Heroes']);  //不带参数
             this._router.navigate(['CrisisDetail', { id: crisis.id }]  ); //参数
-            this._router.navigate(['Heroes',  {id: heroId, foo: 'foo'} ]); //参数对象
+            this._router.navigate(['Heroes',  {id: heroId, foo: 'foo'} ]); //参数对象 
+            子路由的URL:localhost:3000/crisis-center/;id=3;foo=foo
+            正常路由的URL:localhost:3000/crisis-center/?id=3&foo=foo
             //组件类中获取路由参数
             import {Router, RouteParams} from 'angular2/router';
             constructor( private _service: HeroService,private _router: Router,routeParams: RouteParams) {
