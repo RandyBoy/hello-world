@@ -46,7 +46,6 @@ useAsDefault: true 默认路由,子路由也要设置一个默认值.
     ])
     
 7.路由方法
-
         import {ROUTER_PROVIDERS} from 'angular2/router';
         bootstrap(AppComponent, [ROUTER_PROVIDERS]);
         1)导入路由模块
@@ -68,7 +67,7 @@ useAsDefault: true 默认路由,子路由也要设置一个默认值.
             3)路由数据
                 import {Router, RouteData} from 'angular2/router';
                 @RouteConfig([
-                    {path: '/user/:id', component: UserCmp, name: 'UserCmp',data:{isAdmin:true}},//数据传递,对象格式:{(key:string):value}
+                    {path: '/user/:id', component: UserCmp,name:'UserCmp',data:{isAdmin:true}}, //数据传递,对象格式:{(key:string):value}
                 ])
                 constructor(data: RouteData) { //data.get(string) 获取KEY的值; data.data 返回原传递对象
                     this.isAdmin = data.get('isAdmin'); //获取传递的数据
@@ -100,6 +99,12 @@ useAsDefault: true 默认路由,子路由也要设置一个默认值.
                 name is an optional CamelCase string representing the name of the route.
                 data is an optional property of any type representing arbitrary route metadata for the given route. It is injectable via RouteData.
                 useAsDefault is a boolean value. If true, the child route will be navigated to if no child route is specified during the navigation.
+            8)Redirect
+                import {RouteConfig, Route, Redirect} from 'angular2/router';
+                @RouteConfig([
+                    new Redirect({path: '/', redirectTo: ['/Home'] }), //指定路径和重定向的路径名称
+                    new Route({path: '/home', component: HomeCmp, name: 'Home'})
+                ])
         8.router生命周期钩子
             可以改变路由的行为。router的钩子函数可以组织导航到一个路径，如果返回值是false，就取消导航，保持在当前视图。还可以让路由导航到里你跟一个组件。
         CanActivate
