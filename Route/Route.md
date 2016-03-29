@@ -29,18 +29,19 @@ useAsDefault: true 默认路由,子路由也要设置一个默认值.
     
 6.子路由配置
     @RouteConfig([
-    { // Crisis Center child route
-        path: '/crisis-center/...', //表示该路由不完整,要配置子路由配置完成路由
-        name: 'CrisisCenter',
-        component: CrisisCenterComponent,
-        useAsDefault: true },
-        {path: '/heroes',   name: 'Heroes',     component: HeroListComponent},
-        {path: '/hero/:id', name: 'HeroDetail', component: HeroDetailComponent},
-    ])
+        { // Crisis Center child route
+            path: '/crisis-center/...', //表示该路由不完整,要配置子路由配置完成路由
+            name: 'CrisisCenter',
+            component: CrisisCenterComponent,
+            useAsDefault: true },
+            {path: '/heroes',   name: 'Heroes',     component: HeroListComponent},
+            {path: '/hero/:id', name: 'HeroDetail', component: HeroDetailComponent},
+        ])
     
-    7.路由方法
+7.路由方法
         import {ROUTER_PROVIDERS} from 'angular2/router';
         bootstrap(AppComponent, [ROUTER_PROVIDERS]);
+        
         1)导入路由模块
             import {Router} from 'angular2/router';
         2)导航到路由
